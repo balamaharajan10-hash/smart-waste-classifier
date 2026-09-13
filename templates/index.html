@@ -1,1 +1,83 @@
+{% extends "base.html" %}
+{% block title %}EcoSort AI — Turn Waste Into Smarter Decisions{% endblock %}
+{% set active_page = 'home' %}
+{% block content %}
 
+<section class="hero">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-container">
+    <span class="badge">
+      <i class="fa-solid fa-microchip"></i> AI-Powered Waste Intelligence
+    </span>
+    <h1>Turn Waste Into <span class="text-gradient">Smarter Decisions</span></h1>
+    <p class="hero-subtitle">
+      Upload or capture a photo of any item and our computer-vision model instantly identifies
+      the waste category, tells you whether it's biodegradable and recyclable, and gives you
+      clear disposal and reuse guidance — in seconds.
+    </p>
+    <div class="hero-actions">
+      <a href="/classifier" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Your Waste
+      </a>
+      <a href="/guide" class="btn btn-ghost btn-lg">
+        <i class="fa-solid fa-book"></i> Explore Waste Guide
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div><strong>10</strong><span>Waste Categories</span></div>
+      <div><strong>3</strong><span>Top Predictions Shown</span></div>
+      <div><strong>&lt;1s</strong><span>Inference Time</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="section-container">
+    <h2 class="section-title">How EcoSort AI helps you</h2>
+    <p class="section-subtitle">Beyond a label — real, actionable waste intelligence.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon icon-blue"><i class="fa-solid fa-camera-retro"></i></div>
+        <h3>AI Classification</h3>
+        <p>A MobileNetV2-based deep learning model trained on 10 waste categories identifies your item from a photo or live webcam capture.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-green"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+        <h3>Smart Waste Detection</h3>
+        <p>Top-3 predictions with confidence scores, plus a confidence-aware system that tells you when a photo needs to be clearer.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-amber"><i class="fa-solid fa-seedling"></i></div>
+        <h3>Eco Guidance</h3>
+        <p>Instant biodegradable / non-biodegradable status with clear, honest disposal instructions — including safety warnings for hazardous items.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon icon-purple"><i class="fa-solid fa-recycle"></i></div>
+        <h3>Recycling Insights</h3>
+        <p>Reuse ideas and environmental impact context for every category, so you understand the "why" behind each recommendation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works">
+  <div class="section-container">
+    <h2 class="section-title">From photo to plan in 4 steps</h2>
+    <div class="steps-grid">
+      <div class="step-card"><span class="step-num">1</span><h4>Upload or Capture</h4><p>Drag & drop an image, browse your files, or use your webcam.</p></div>
+      <div class="step-card"><span class="step-num">2</span><h4>AI Analysis</h4><p>Our model classifies the item across 10 waste categories in real time.</p></div>
+      <div class="step-card"><span class="step-num">3</span><h4>Get Confidence Score</h4><p>See exactly how confident the model is, with top-3 alternatives.</p></div>
+      <div class="step-card"><span class="step-num">4</span><h4>Act on Guidance</h4><p>Follow clear disposal, recycling, and reuse recommendations.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="section-container cta-inner">
+    <h2>Ready to sort smarter?</h2>
+    <p>No sign-up needed. Just snap a photo and see what EcoSort AI finds.</p>
+    <a href="/classifier" class="btn btn-primary btn-lg">Analyze Your Waste <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+
+{% endblock %}

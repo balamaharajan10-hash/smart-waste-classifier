@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}About — EcoSort AI{% endblock %}
+{% set active_page = 'about' %}
+{% block content %}
+
+<section class="page-header">
+  <div class="section-container">
+    <h1>About EcoSort AI</h1>
+    <p>An AI decision-support tool for smarter waste sorting — how it works, and where it's limited.</p>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="section-container about-grid">
+
+    <div class="card">
+      <h3><i class="fa-solid fa-brain"></i> How the model works</h3>
+      <p>EcoSort AI uses <strong>transfer learning</strong> on <strong>MobileNetV2</strong>, a convolutional neural network (CNN) pretrained on ImageNet. Instead of training from scratch, we reuse its learned visual features and fine-tune a new classification head on our 10-class waste dataset. This gives strong accuracy with a small, fast, deployment-friendly model.</p>
+      <p>Each prediction ends in a <strong>softmax</strong> layer, which converts raw model outputs into a probability distribution across all 10 classes — that's where the confidence score comes from.</p>
+    </div>
+
+    <div class="card">
+      <h3><i class="fa-solid fa-triangle-exclamation"></i> Model limitations</h3>
+      <ul class="limitation-list">
+        <li>Predictions depend heavily on image quality, lighting, and framing.</li>
+        <li>Visually similar materials (e.g. certain plastics vs. glass) can be confused.</li>
+        <li>Some categories (like plastic type, or biodegradability of blended fabrics) truly require material composition information the model can't see.</li>
+        <li>Recyclability rules vary by location and local facility — always check local guidelines.</li>
+        <li>This is an AI decision-support tool, not a certified waste-sorting authority.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><i class="fa-solid fa-graduation-cap"></i> Key concepts (for the curious)</h3>
+      <dl class="concept-list">
+        <dt>Transfer Learning</dt><dd>Reusing a model pretrained on a large dataset (ImageNet) and adapting it to a new, smaller task.</dd>
+        <dt>Data Augmentation</dt><dd>Randomly rotating, flipping, and shifting training images so the model generalizes better and doesn't just memorize the training set.</dd>
+        <dt>Confusion Matrix</dt><dd>A table showing which classes the model mixes up with which — used to diagnose weaknesses.</dd>
+        <dt>Precision / Recall / F1</dt><dd>Precision: of items predicted as class X, how many really are X. Recall: of all real class-X items, how many were found. F1 balances both.</dd>
+        <dt>Grad-CAM</dt><dd>A technique that highlights which regions of an image most influenced the model's decision — used here for explainability, not as proof of correctness.</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <h3><i class="fa-solid fa-layer-group"></i> Waste categories covered</h3>
+      <p>Battery, Biological, Cardboard, Clothes, Glass, Metal, Paper, Plastic, Shoes, Trash — matching the structure of the public <em>garbage-classification-v2</em> dataset.</p>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

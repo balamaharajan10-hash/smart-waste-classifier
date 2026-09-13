@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block title %}AI Classifier — EcoSort AI{% endblock %}
+{% set active_page = 'classifier' %}
+{% block content %}
+
+<section class="page-header">
+  <div class="section-container">
+    <h1>AI Waste Classifier</h1>
+    <p>Upload a photo, drag & drop, or use your webcam to analyze an item.</p>
+  </div>
+</section>
+
+<section class="classifier-section">
+  <div class="section-container classifier-grid">
+
+    <div class="upload-panel card">
+      <div class="input-mode-tabs">
+        <button class="mode-tab active" data-mode="upload"><i class="fa-solid fa-upload"></i> Upload</button>
+        <button class="mode-tab" data-mode="webcam"><i class="fa-solid fa-camera"></i> Webcam</button>
+      </div>
+
+      <div id="uploadMode" class="mode-panel active">
+        <div id="dropzone" class="dropzone">
+          <input type="file" id="fileInput" accept="image/png, image/jpeg, image/webp" hidden>
+          <div id="dropzoneEmpty" class="dropzone-empty">
+            <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+            <p><strong>Drag & drop</strong> your image here</p>
+            <p class="dropzone-sub">or</p>
+            <button class="btn btn-primary" id="browseBtn">Browse Files</button>
+            <p class="dropzone-hint">JPG, PNG, or WEBP · Max 8MB</p>
+          </div>
+          <div id="dropzonePreview" class="dropzone-preview" style="display:none;">
+            <img id="previewImg" alt="Uploaded preview">
+            <button class="btn btn-ghost btn-sm" id="clearImgBtn"><i class="fa-solid fa-rotate-left"></i> Choose different image</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="webcamMode" class="mode-panel">
+        <div class="webcam-wrap">
+          <video id="webcamVideo" autoplay playsinline></video>
+          <canvas id="webcamCanvas" style="display:none;"></canvas>
+          <img id="webcamCapturedImg" style="display:none;" alt="Captured photo">
+        </div>
+        <div class="webcam-controls">
+          <button class="btn btn-primary" id="startWebcamBtn"><i class="fa-solid fa-video"></i> Start Camera</button>
+          <button class="btn btn-primary" id="captureBtn" style="display:none;"><i class="fa-solid fa-camera"></i> Capture Photo</button>
+          <button class="btn btn-ghost" id="retakeBtn" style="display:none;"><i class="fa-solid fa-rotate-left"></i> Retake</button>
+        </div>
+        <p class="dropzone-hint" id="webcamHint">Works on desktop & mobile browsers. You'll be asked for camera permission.</p>
+      </div>
+
+      <button class="btn btn-primary btn-lg btn-block" id="analyzeBtn" disabled>
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Waste
+      </button>
+      <label class="explain-toggle">
+        <input type="checkbox" id="explainToggle"> Show AI explanation (Grad-CAM heatmap)
+      </label>
+    </div>
+
+    <div class="results-panel">
+      <div id="loadingState" class="card loading-card" style="display:none;">
+        <div class="spinner"></div>
+        <p>Analyzing image...</p>
+      </div>
+
+      <div id="emptyState" class="card empty-card">
+        <i class="fa-solid fa-image empty-icon"></i>
+        <p>Your results will appear here once you analyze an image.</p>
+      </div>
+
+      <div id="errorState" class="card error-card" style="display:none;">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <p id="errorMessage"></p>
+      </div>
+
+      <div id="resultCard" class="card result-card" style="display:none;">
+        <div class="confidence-banner" id="confidenceBanner">
+          <span id="confidenceMessage"></span>
+        </div>
+
+        <div class="result-header">
+          <div class="result-icon"><i class="fa-solid fa-recycle"></i></div>
+          <div>
+            <h2 id="predictedClassName">—</h2>
+            <p id="predictedMaterial">—</p>
+          </div>
+          <div class="confidence-circle" id="confidenceCircle">
+            <span id="confidenceValue">0%</span>
+          </div>
+        </div>
+
+        <div class="top3-list" id="top3List"></div>
+
+        <div class="status-badges">
+          <span class="status-badge" id="biodegradableBadge">—</span>
+          <span class="status-badge" id="recyclableBadge">—</span>
+          <span class="status-badge hazard-badge" id="hazardBadge" style="display:none;">
+            <i class="fa-solid fa-triangle-exclamation"></i> Special handling required
+          </span>
+        </div>
+
+        <div class="info-block">
+          <h4><i class="fa-solid fa-truck-ramp-box"></i> Recommended Disposal</h4>
+          <p id="disposalText">—</p>
+        </div>
+
+        <div class="info-block">
+          <h4><i class="fa-solid fa-lightbulb"></i> Reuse Ideas</h4>
+          <ul id="reuseList"></ul>
+        </div>
+
+        <div class="info-block">
+          <h4><i class="fa-solid fa-earth-americas"></i> Environmental Impact</h4>
+          <p id="environmentText">—</p>
+        </div>
+
+        <div class="info-block safety-block" id="safetyBlock" style="display:none;">
+          <h4><i class="fa-solid fa-shield-halved"></i> Safety Warning</h4>
+          <p id="safetyText">—</p>
+        </div>
+
+        <div class="info-block gradcam-block" id="gradcamBlock" style="display:none;">
+          <h4><i class="fa-solid fa-eye"></i> AI Explanation (Grad-CAM)</h4>
+          <p class="gradcam-caption">Highlighted regions show what the AI focused on. This is a visualization aid, not proof the prediction is correct.</p>
+          <img id="gradcamImg" alt="Grad-CAM heatmap">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/classifier.js') }}"></script>
+{% endblock %}

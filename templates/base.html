@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>{% block title %}EcoSort AI — Smart Waste Classification{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-brand">
+      <span class="nav-brand-icon"><i class="fa-solid fa-leaf"></i></span>
+      <span>EcoSort <b>AI</b></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a></li>
+      <li><a href="/classifier" class="{{ 'active' if active_page == 'classifier' else '' }}">AI Classifier</a></li>
+      <li><a href="/guide" class="{{ 'active' if active_page == 'guide' else '' }}">Waste Guide</a></li>
+      <li><a href="/dashboard" class="{{ 'active' if active_page == 'dashboard' else '' }}">Analytics</a></li>
+      <li><a href="/history" class="{{ 'active' if active_page == 'history' else '' }}">History</a></li>
+      <li><a href="/about" class="{{ 'active' if active_page == 'about' else '' }}">About</a></li>
+    </ul>
+    <a href="/classifier" class="nav-cta">Analyze Waste</a>
+  </div>
+</nav>
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <span class="nav-brand-icon"><i class="fa-solid fa-leaf"></i></span>
+      <span>EcoSort AI</span>
+    </div>
+    <p>An AI decision-support tool for smarter waste sorting. Predictions are guidance, not a guarantee — always follow your local recycling authority's rules.</p>
+    <p class="footer-meta">Academic project — Smart Waste Classification and Management System</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

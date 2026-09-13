@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}History — EcoSort AI{% endblock %}
+{% set active_page = 'history' %}
+{% block content %}
+
+<section class="page-header">
+  <div class="section-container header-with-action">
+    <div>
+      <h1>Prediction History</h1>
+      <p>Every classification you've run, most recent first.</p>
+    </div>
+    <button class="btn btn-ghost" id="clearHistoryBtn"><i class="fa-solid fa-trash"></i> Clear History</button>
+  </div>
+</section>
+
+<section class="history-section">
+  <div class="section-container">
+    <div class="history-grid" id="historyGrid"></div>
+    <p class="empty-note" id="historyEmptyNote" style="display:none;">
+      No history yet. <a href="/classifier">Analyze your first item</a> to get started.
+    </p>
+  </div>
+</section>
+
+{% endblock %}
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %}

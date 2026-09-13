@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Analytics — EcoSort AI{% endblock %}
+{% set active_page = 'dashboard' %}
+{% block content %}
+
+<section class="page-header">
+  <div class="section-container">
+    <h1>Analytics Dashboard</h1>
+    <p>Insights from all waste classifications performed so far.</p>
+  </div>
+</section>
+
+<section class="dashboard-section">
+  <div class="section-container">
+
+    <div class="stat-grid" id="statGrid">
+      <div class="stat-card">
+        <i class="fa-solid fa-chart-simple stat-icon icon-blue"></i>
+        <div><span class="stat-value" id="statTotal">0</span><span class="stat-label">Total Classifications</span></div>
+      </div>
+      <div class="stat-card">
+        <i class="fa-solid fa-star stat-icon icon-amber"></i>
+        <div><span class="stat-value" id="statMostFrequent">—</span><span class="stat-label">Most Detected</span></div>
+      </div>
+      <div class="stat-card">
+        <i class="fa-solid fa-gauge-high stat-icon icon-green"></i>
+        <div><span class="stat-value" id="statAvgConfidence">0%</span><span class="stat-label">Avg. Confidence</span></div>
+      </div>
+      <div class="stat-card">
+        <i class="fa-solid fa-seedling stat-icon icon-purple"></i>
+        <div><span class="stat-value" id="statBiodegPct">0%</span><span class="stat-label">Biodegradable Share</span></div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="card chart-card">
+        <h3>Waste Category Breakdown</h3>
+        <canvas id="categoryChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>Biodegradable vs Non-Biodegradable</h3>
+        <canvas id="biodegChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>Recyclable vs Non-Recyclable</h3>
+        <canvas id="recycleChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Recent Classifications</h3>
+      <div class="table-wrap">
+        <table class="data-table" id="recentTable">
+          <thead>
+            <tr><th>Class</th><th>Confidence</th><th>Biodegradable</th><th>Recyclable</th><th>Time</th></tr>
+          </thead>
+          <tbody id="recentTableBody"></tbody>
+        </table>
+      </div>
+      <p class="empty-note" id="recentEmptyNote" style="display:none;">No classifications yet — analyze an item to populate your dashboard.</p>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

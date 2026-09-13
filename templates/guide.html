@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Waste Guide — EcoSort AI{% endblock %}
+{% set active_page = 'guide' %}
+{% block content %}
+
+<section class="page-header">
+  <div class="section-container">
+    <h1>Waste Guide</h1>
+    <p>Everything you need to know about all 10 waste categories our AI recognizes.</p>
+  </div>
+</section>
+
+<section class="guide-section">
+  <div class="section-container">
+    <div class="guide-grid">
+      {% for key, info in waste_info.items() %}
+      <div class="guide-card" onclick="document.getElementById('modal-{{ key }}').classList.add('open')">
+        <div class="guide-icon"><i class="fa-solid fa-{{ info.icon }}"></i></div>
+        <h3>{{ info.display_name }}</h3>
+        <div class="guide-badges">
+          <span class="mini-badge {{ 'badge-green' if info.biodegradable == True else ('badge-gray' if info.biodegradable == False else 'badge-amber') }}">
+            {% if info.biodegradable == True %}Biodegradable{% elif info.biodegradable == False %}Non-Biodegradable{% else %}Depends on material{% endif %}
+          </span>
+        </div>
+        <p class="guide-preview">{{ info.disposal[:90] }}...</p>
+        <span class="guide-more">View details <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% for key, info in waste_info.items() %}
+<div class="modal-overlay" id="modal-{{ key }}">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-{{ key }}').classList.remove('open')">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="guide-icon"><i class="fa-solid fa-{{ info.icon }}"></i></div>
+    <h2>{{ info.display_name }}</h2>
+    <p class="modal-material"><strong>Material:</strong> {{ info.material }}</p>
+
+    <div class="status-badges">
+      <span class="status-badge">
+        {% if info.biodegradable == True %}Biodegradable{% elif info.biodegradable == False %}Non-Biodegradable{% else %}{{ info.biodegradable }}{% endif %}
+      </span>
+      <span class="status-badge">{{ info.recyclable }}</span>
+      {% if info.special_handling %}
+      <span class="status-badge hazard-badge"><i class="fa-solid fa-triangle-exclamation"></i> Special handling</span>
+      {% endif %}
+    </div>
+
+    <div class="info-block">
+      <h4><i class="fa-solid fa-truck-ramp-box"></i> Disposal Guidance</h4>
+      <p>{{ info.disposal }}</p>
+    </div>
+    <div class="info-block">
+      <h4><i class="fa-solid fa-lightbulb"></i> Reuse Ideas</h4>
+      <ul>{% for idea in info.reuse_ideas %}<li>{{ idea }}</li>{% endfor %}</ul>
+    </div>
+    <div class="info-block">
+      <h4><i class="fa-solid fa-earth-americas"></i> Environmental Impact</h4>
+      <p>{{ info.environmental_impact }}</p>
+    </div>
+    {% if info.safety_warning %}
+    <div class="info-block safety-block">
+      <h4><i class="fa-solid fa-shield-halved"></i> Safety Warning</h4>
+      <p>{{ info.safety_warning }}</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
