@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+env/
+venv/
+.venv/
+
+# Dataset (never commit — see README for download instructions)
+dataset/
+dataset_test/
+
+# Trained models (large files — use Git LFS or external storage if needed)
+# model/*.keras
+# model/*.h5
+# model/evaluation/
+
+# Uploads and history at runtime
+uploads/*
+!uploads/.gitkeep
+history/*.json
+
+# Environment / secrets
+.env
+*.env.local
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log

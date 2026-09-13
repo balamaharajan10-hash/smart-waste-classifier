@@ -1,0 +1,9 @@
+NumPy:
+Numerical python
+ADVANTAGE-Fast math calculation
+Arrays & Matrix
+Linear algebra
+Installation:
+import numpy as np
+array=[1,2,3,4]np.array
+np array dont give as in commas
