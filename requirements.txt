@@ -38,6 +38,7 @@ Werkzeug==3.0.3
 gunicorn==22.0.0
 
 tensorflow-cpu==2.15.1
+keras==2.15.0
 numpy==1.26.4
 pandas==2.2.2
 Pillow==10.3.0
@@ -49,4 +50,3 @@ seaborn==0.13.2
 
 h5py==3.11.0
 python-dotenv==1.0.1
-mysql-connector-python
