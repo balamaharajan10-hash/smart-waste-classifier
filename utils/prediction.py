@@ -18,7 +18,7 @@ import tensorflow as tf
 from utils.waste_info import CLASS_NAMES, get_confidence_label, get_waste_info
 
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "model")
-MODEL_PATH = os.path.join(MODEL_DIR, "waste_model_final.keras")
+MODEL_PATH = os.path.join(MODEL_DIR, "waste_model_final.h5")
 CLASS_INDEX_PATH = os.path.join(MODEL_DIR, "class_indices.json")
 IMG_SIZE = (224, 224)
 
